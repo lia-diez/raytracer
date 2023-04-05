@@ -1,4 +1,6 @@
-﻿Console.WriteLine("Hello, I am RayTracer!");
+﻿using Common.Structures;
+
+Console.WriteLine("Hello, I am RayTracer!");
 Console.WriteLine("""
         ******
     **************
