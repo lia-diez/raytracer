@@ -1,8 +1,8 @@
-﻿using Common.Structures;
+﻿using Common.Primitives;
 
 namespace Core.SceneObjects;
 
 public interface ICamera
 {
-    public Ray[,] Render();
+    public IBitmap Render();
 }
