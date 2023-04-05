@@ -1,6 +1,8 @@
-﻿namespace Common.Primitives;
+﻿using Common.Structures;
+
+namespace Common.Primitives;
 
 public interface ICamera
 {
-    public void Render();
+    public Ray[,] Render();
 }

@@ -22,26 +22,35 @@ public class Camera : ICamera
     {
     }
 
-    public void Render()
+    public Ray[,] Render()
     {
-        var a = CreateRays().ToList();
+        var a = CreateRays();
+        return a;
     }
 
-    private IEnumerable<Ray> CreateRays()
+    private Ray[,] CreateRays()
     {
         var pixelSize = (float)(2 * Math.Tan(Fov) / Resolution.Height);
         var edge = FindEdge(pixelSize);
+        var rays = new Ray[Resolution.Width,Resolution.Height];
         for (int i = 0; i < Resolution.Width; i++)
         {
             for (int j = 0; j < Resolution.Height; j++)
             {
-                yield return new Ray
+                rays[i, j] = new Ray
                 (
                     Origin,
                     new Vector(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
                 );
+                // yield return new Ray
+                // (
+                //     Origin,
+                //     new Vector(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
+                // );
             }
         }
+
+        return rays;
     }
 
     private Point FindEdge(float pixelSize)
