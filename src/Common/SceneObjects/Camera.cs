@@ -1,4 +1,5 @@
-﻿using Common.Primitives;
+﻿using Common.Extensions;
+using Common.Primitives;
 using Common.Structures;
 
 namespace Common.SceneObjects;
@@ -8,18 +9,14 @@ public class Camera : ICamera
     public Point Origin;
     public Vector Direction;
     public float Fov;
-    public (int Width, int Height) Resolution;
+    public Rect Resolution;
     
-    public Camera(Point origin, Vector direction, int fov, (int Width, int Height) resolution)
+    public Camera(CameraSettings settings)
     {
-        Origin = origin;
-        Direction = direction;
-        Resolution = resolution;
-        Fov = DegreeToRad(fov);
-    }
-
-    public Camera()
-    {
+        Origin = settings.Origin;
+        Direction = settings.Direction;
+        Resolution = settings.Resolution;
+        Fov = MathExtensions.DegreeToRad(settings.Fov);
     }
 
     public Ray[,] Render()
@@ -66,7 +63,5 @@ public class Camera : ICamera
 
         return new Point(x, y, z);
     }
-    
-    public static float DegreeToRad(int degree) => (float)(degree * Math.PI / 180);
 
 }
