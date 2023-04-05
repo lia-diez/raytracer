@@ -1,4 +1,4 @@
-﻿using Common.Primitives;
+using Common.Primitives;
 using Common.SceneObjects;
 using Common.Structures;
 
