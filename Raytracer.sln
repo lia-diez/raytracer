@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaytracerConsole", "src\RaytracerConsole\RaytracerConsole.csproj", "{78D38557-1031-4F47-9C43-DE897D3E9FF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "src\Common\Common.csproj", "{1B41CEA0-9C05-45A1-980F-0CD837AA77E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{E67AF74D-5BE0-47C2-80AE-E1178E4DD32C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageManipulation", "src\ImageManipulation\ImageManipulation.csproj", "{31A0736C-ED56-420E-99AE-344569F86281}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78D38557-1031-4F47-9C43-DE897D3E9FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D38557-1031-4F47-9C43-DE897D3E9FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D38557-1031-4F47-9C43-DE897D3E9FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D38557-1031-4F47-9C43-DE897D3E9FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B41CEA0-9C05-45A1-980F-0CD837AA77E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B41CEA0-9C05-45A1-980F-0CD837AA77E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B41CEA0-9C05-45A1-980F-0CD837AA77E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B41CEA0-9C05-45A1-980F-0CD837AA77E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67AF74D-5BE0-47C2-80AE-E1178E4DD32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67AF74D-5BE0-47C2-80AE-E1178E4DD32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67AF74D-5BE0-47C2-80AE-E1178E4DD32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67AF74D-5BE0-47C2-80AE-E1178E4DD32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A0736C-ED56-420E-99AE-344569F86281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A0736C-ED56-420E-99AE-344569F86281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A0736C-ED56-420E-99AE-344569F86281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A0736C-ED56-420E-99AE-344569F86281}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
