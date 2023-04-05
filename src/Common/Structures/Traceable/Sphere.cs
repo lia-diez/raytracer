@@ -31,6 +31,8 @@ public class Sphere : ITraceable
         return ray.Origin.Translate(ray.Direction * closestDistance);
     }
 
+    public Vector GetNormal(Point point) => point - Center;
+
     private IEnumerable<float>? SolveQuadraticEquation(float a, float b, float c)
     {
         var d = b * b - 4 * a * c;

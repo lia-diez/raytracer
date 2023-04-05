@@ -21,7 +21,17 @@ public class AsciiImageExporter : IImageExporter
             {
                 for (int j = 0; j < Bitmap.Resolution.Y; j++)
                 {
-                    sw.Write(Bitmap.GetPixel(i, j).R >= 0.8f ? "OO" : "  ");
+                    string symbol = Bitmap.GetPixel(i, j).R switch
+                    {
+                        <= 0 => "  ",
+                        < 0.2f => "..",
+                        < 0.5f => "**",
+                        < 0.8f => "OO",
+                        > 0.8f => "##",
+                        _ => "EE"
+                    };
+                    // sw.Write(Bitmap.GetPixel(i, j).R >= 0.8f ? "OO" : "  ");
+                    sw.Write(symbol);
                 }
                 sw.WriteLine();
             }

@@ -12,4 +12,10 @@ public record Point (float X, float Y, float Z)
     {
         return new Vector(p1.X - p2.X, p1.Y - p2.Y, p1.Z - p2.Z);
     }
+
+    public static float GetDistance(Point p1, Point p2)
+    {
+        var p3 = p2 - p1;
+        return (float)Math.Sqrt(p3.X * p3.X + p3.Y * p3.Y + p3.Z * p3.Z);
+    }
 }

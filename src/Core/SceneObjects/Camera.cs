@@ -11,12 +11,11 @@ public class Camera : ICamera
     public Vector Direction;
     public float Fov;
     public Vector2Int Resolution;
+    public Scene Scene;
     
-    //todo: remove
-    ITraceable Sphere = new Sphere(new Point(0, 0, 5), 1);
-    
-    public Camera(CameraSettings settings)
+    public Camera(CameraSettings settings, Scene scene)
     {
+        Scene = scene;
         Origin = settings.Origin;
         Direction = settings.Direction;
         Resolution = settings.Resolution;
@@ -25,42 +24,44 @@ public class Camera : ICamera
 
     public IBitmap Render()
     {
-        var rays = CreateRays();
         var bitmap = new Bitmap(Resolution with { });
-        for (int i = 0; i < rays.GetLength(0); i++)
-        {
-            for (int j = 0; j < rays.GetLength(1); j++)
-            {
-                var color = Sphere.FindIntersection(rays[i, j]) == null ? new Color(0) : new Color(1);
-                bitmap.SetPixel(i, j, color);
-            }
-        }
-        return bitmap;
-    }
-
-    private Ray[,] CreateRays()
-    {
         var pixelSize = (float)(2 * Math.Tan(Fov) / Resolution.Y);
         var edge = FindEdge(pixelSize);
-        var rays = new Ray[Resolution.X,Resolution.Y];
+        
         for (int i = 0; i < Resolution.X; i++)
         {
             for (int j = 0; j < Resolution.Y; j++)
             {
-                rays[i, j] = new Ray
+                var ray = new Ray
                 (
                     Origin,
                     new Vector(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
                 );
-                // yield return new Ray
-                // (
-                //     Origin,
-                //     new Vector(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
-                // );
+
+                var light = Scene.Lights.First();
+                (ITraceable trace, Point intersect)? closest = null;
+                float minDist = float.MaxValue;
+                foreach (var iTraceable in Scene.Traceables)
+                {
+                    var intersection = iTraceable.FindIntersection(ray);
+                    if (intersection != null)
+                    {
+                        var distance = Point.GetDistance(Origin, intersection);
+                        if (distance < minDist)
+                        {
+                            closest = (iTraceable, intersection);
+                            minDist = distance;
+                        }
+                    }
+                }
+                var color = closest == null ? 
+                    new Color(0) : 
+                    new Color(light.ComputeColor(closest.Value.trace.GetNormal(closest.Value.intersect)));
+                bitmap.SetPixel(i, j, color);
             }
         }
 
-        return rays;
+        return bitmap;
     }
 
     private Point FindEdge(float pixelSize)
