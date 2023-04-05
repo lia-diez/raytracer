@@ -1,6 +1,6 @@
 ﻿using Common.Structures;
 
-namespace Common.SceneObjects;
+namespace Core.SceneObjects;
 
 public record CameraSettings
 {

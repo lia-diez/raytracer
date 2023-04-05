@@ -2,7 +2,7 @@
 using Common.Primitives;
 using Common.Structures;
 
-namespace Common.SceneObjects;
+namespace Core.SceneObjects;
 
 public class Camera : ICamera
 {

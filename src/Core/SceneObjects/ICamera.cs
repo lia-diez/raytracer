@@ -1,6 +1,6 @@
 ﻿using Common.Structures;
 
-namespace Common.Primitives;
+namespace Core.SceneObjects;
 
 public interface ICamera
 {

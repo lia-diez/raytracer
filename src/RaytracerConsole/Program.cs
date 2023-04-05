@@ -1,6 +1,6 @@
-using Common.Primitives;
-using Common.SceneObjects;
 using Common.Structures;
+using Common.Structures.Traceable;
+using Core.SceneObjects;
 
 var sphere = new Sphere(new Point(0, 0, 5), 1);
 

@@ -1,6 +1,6 @@
-﻿using Common.Structures;
+﻿using Common.Primitives;
 
-namespace Common.Primitives;
+namespace Common.Structures.Traceable;
 
 public class Sphere : ITraceable
 {
