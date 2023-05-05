@@ -1,14 +1,15 @@
-﻿using Common.Extensions;
-using Common.Primitives;
+﻿using Common.Primitives;
 using Common.Structures;
+using Common.Structures.Numerics;
 using Common.Structures.Traceable;
+using Core.Extensions;
 
 namespace Core.SceneObjects;
 
 public class Camera : ICamera
 {
     public Point Origin;
-    public Vector Direction;
+    public Vector3 Direction;
     public float Fov;
     public Vector2Int Resolution;
     public Scene Scene;
@@ -35,7 +36,7 @@ public class Camera : ICamera
                 var ray = new Ray
                 (
                     Origin,
-                    new Vector(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
+                    new Vector3(edge.X + pixelSize * i, edge.Y + pixelSize * j, edge.Z).Normalize()
                 );
 
                 var light = Scene.Lights.First();

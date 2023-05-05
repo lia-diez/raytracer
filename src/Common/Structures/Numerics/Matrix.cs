@@ -1,4 +1,4 @@
-﻿namespace Common.Structures;
+﻿namespace Common.Structures.Numerics;
 
 public class Matrix
 {
@@ -10,13 +10,13 @@ public class Matrix
         _rawMatrix = rawMatrix;
         Size = new Vector2Int(rawMatrix.GetLength(0), rawMatrix.GetLength(1));
     }
-    
+
     public Matrix(Vector2Int size)
     {
         _rawMatrix = new float[size.X, size.Y];
         Size = size;
     }
-    
+
     public Matrix(int x, int y)
     {
         _rawMatrix = new float[x, y];
@@ -29,10 +29,21 @@ public class Matrix
         set => _rawMatrix[x, y] = value;
     }
 
-    public static Matrix? operator *(Matrix first, Matrix second)
+    public static Matrix Identity(int n)
     {
-        if (first.Size.Y != second.Size.X)
-            return null;
+        var result = new float[n, n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i, i] = 1;
+        }
+
+        return new Matrix(result);
+    }
+
+    public static Matrix operator *(Matrix first, Matrix second)
+    {
+        if (first.Size.Y != second.Size.X) 
+            throw new ArgumentException("First matric o-jpsdjfosjf");
 
         var result = new Matrix(second.Size.Y, first.Size.X);
 

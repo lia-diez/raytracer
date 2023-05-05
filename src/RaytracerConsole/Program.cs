@@ -1,27 +1,6 @@
-using Common.Structures;
+using Common.Extensions;
+using Common.Structures.Numerics;
 
-float[,] f = {
-    { 1, 2, 3 },
-    { 0, 4, 0 }
-};
-
-float[,] s =
-{
-    { 0, 1, 3, 2 },
-    { 2, 4, 0, 1 },
-    { 4, 3, 1, 2 }
-};
-
-Matrix first = new Matrix(f);
-Matrix second = new Matrix(s);
-
-var a = first * second;
-for (int i = 0; i < a.Size.X; i++)
-{
-    for (int j = 0; j < a.Size.Y; j++)
-    {
-        Console.Write(a[i,j] + " ");
-    }
-
-    Console.WriteLine();
-}
+Vector4 point = new Vector4(0, 0, 1, 1);
+var translate = MutationMatrix.FromTranslation(1, 0, 0) * MutationMatrix.FromScale(2, 2, 2) * MutationMatrix.FromRotation(MathF.PI/2,  0, 0);
+var point2 = point.Transform(translate);

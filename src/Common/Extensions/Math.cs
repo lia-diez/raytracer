@@ -1,4 +1,4 @@
-﻿namespace Common.Extensions;
+﻿namespace Core.Extensions;
 
 public static class MathExtensions
 {

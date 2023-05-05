@@ -1,18 +1,19 @@
 ﻿using Common.Structures;
+using Common.Structures.Numerics;
 
 namespace Common.Light;
 
 public class DirectionLight : ILight
 {
-    public Vector Direction;
+    public Vector3 Direction;
 
-    public DirectionLight(Vector direction)
+    public DirectionLight(Vector3 direction)
     {
         Direction = direction.Normalize();
     }
 
-    public float ComputeColor(Vector normal)
+    public float ComputeColor(Vector3 normal)
     {
-        return Vector.DotProduct(Direction, normal);
+        return Vector3.DotProduct(Direction, normal);
     }
 }

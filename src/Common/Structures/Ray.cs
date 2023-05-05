@@ -1,3 +1,5 @@
-﻿namespace Common.Structures;
+﻿using Common.Structures.Numerics;
 
-public record Ray(Point Origin, Vector Direction);
+namespace Common.Structures;
+
+public record Ray(Point Origin, Vector3 Direction);
