@@ -1,6 +1,7 @@
-using Common.Extensions;
+using Common.Structures;
 using Common.Structures.Numerics;
+using Common.Structures.Traceable;
 
-Vector4 point = new Vector4(0, 0, 1, 1);
-var translate = MutationMatrix.FromTranslation(1, 0, 0) * MutationMatrix.FromScale(2, 2, 2) * MutationMatrix.FromRotation(MathF.PI/2,  0, 0);
-var point2 = point.Transform(translate);
+var triangle = new Triangle(new Point(1, -1, 0), new Point(1, 1, 0), new Point(0, 0, 2));
+var ray = new Ray(new Point(0, 0, 0), new Vector3(1, 0, 1));
+var a = triangle.FindIntersection(ray);

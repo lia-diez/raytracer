@@ -1,4 +1,6 @@
-﻿namespace Common.Structures.Numerics;
+﻿using Common.Structures.Numerics;
+
+namespace Common.Structures;
 
 public record Point (float X, float Y, float Z)
 {
