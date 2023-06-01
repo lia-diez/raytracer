@@ -23,7 +23,7 @@ public class AsciiImageExporter : IImageExporter
                 {
                     string symbol = Bitmap.GetPixel(i, j).R switch
                     {
-                        <= 0 => "  ",
+                        <= 0 => "--",
                         < 0.2f => "..",
                         < 0.5f => "**",
                         < 0.8f => "OO",

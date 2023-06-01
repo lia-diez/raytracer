@@ -4,8 +4,6 @@ namespace Common.Structures.Numerics;
 
 public static class MutationMatrix
 {
-
-
     public static Matrix FromScale(float x, float y, float z)
     {
         if (x.Equalish(1) && y.Equalish(1) && z.Equalish(1))

@@ -45,7 +45,7 @@ public class Matrix
         if (first.Size.Y != second.Size.X) 
             throw new ArgumentException("First matric o-jpsdjfosjf");
 
-        var result = new Matrix(second.Size.Y, first.Size.X);
+        var result = new Matrix(first.Size.X, second.Size.Y);
 
         for (int i = 0; i < first.Size.X; i++)
         {
@@ -57,10 +57,23 @@ public class Matrix
                     current += first[i, k] * second[k, j];
                 }
 
-                result[j, i] = current;
+                result[i, j] = current;
             }
         }
 
         return result;
+    }
+
+    public Matrix Rotate(float x, float y, float z)
+    {
+        return this * MutationMatrix.FromRotation(x, y, z);
+    }
+    public Matrix Scale(float x, float y, float z)
+    {
+        return this * MutationMatrix.FromScale(x, y, z);
+    }
+    public Matrix Translate(float x, float y, float z)
+    {
+        return this * MutationMatrix.FromTranslation(x, y, z);
     }
 }

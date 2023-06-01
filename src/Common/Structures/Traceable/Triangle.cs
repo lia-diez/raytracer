@@ -62,4 +62,6 @@ public class Triangle : ITraceable
     }
 
     public Vector3 GetNormal(Point point) => Normal;
+
+    public Point[] GetPoints => new[] { A, B, C };
 }
