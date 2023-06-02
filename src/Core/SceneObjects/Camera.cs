@@ -103,8 +103,8 @@ public class Camera : ICamera
     private Point FindEdge(float pixelSizeX, float pixelSizeY)
     {
         var (x, y, z) = _origin.Translate(_direction);
-        x += pixelSizeX / 2;
-        y += pixelSizeY / 2;
+            x += pixelSizeX / 2;
+            y += pixelSizeY / 2;
 
         x -= pixelSizeX * _resolution.X / 2;
         y -= pixelSizeY * _resolution.Y / 2;

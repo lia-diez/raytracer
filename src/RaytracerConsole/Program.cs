@@ -30,7 +30,7 @@ Matrix transformation = null;
 var camera = new Camera(new CameraSettings()
 {
     Fov = 80,
-    Resolution =  new Vector2Int(512,1024),
+    Resolution =  new Vector2Int(60,100),
     Origin = new Point(0, 0, 0),
     Direction = new Vector3(0, 0, 1),
     Transformation = transformation
@@ -38,11 +38,11 @@ var camera = new Camera(new CameraSettings()
     scene);
 
 var bitmap = camera.Render();
-// var exporter = new AsciiImageExporter(Console.OpenStandardOutput(), bitmap);
+var exporter = new AsciiImageExporter(Console.OpenStandardOutput(), bitmap);
 
-var stream = File.Open("pic2.bmp", FileMode.OpenOrCreate);
-var exporter = new BmpImageExporter(stream, bitmap);
+// var stream = File.Open("pic2.bmp", FileMode.OpenOrCreate);
+// var exporter = new BmpImageExporter(stream, bitmap);
 
 exporter.Export();
-stream.Close();
+// stream.Close();
 // Console.ReadKey();
