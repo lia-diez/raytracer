@@ -1,13 +1,13 @@
+using Common.Extensions;
 using Common.Light;
 using Common.Structures;
 using Common.Structures.Traceable;
+using Common.Structures.Numerics;
 using Core.SceneObjects;
 using raytracer;
 
 var scene = new Scene();
-scene.Lights.Add(new DirectionLight(new Vector(1, 0, 0)));
-// scene.Traceables.Add(new Sphere(new Point(0, -2, 5), 0.5f));
-// scene.Traceables.Add(new Sphere(new Point(1, -1, 5), 1));
+scene.Lights.Add(new DirectionLight(new Vector3(1, 0, 0)));
 
 var radius = 0.5f;
 scene.Traceables.Add(new Sphere(new Point(0, 0, 10), radius));
@@ -22,17 +22,27 @@ for (int i = 1; i < 5; i++)
     scene.Traceables.Add(new Sphere(new Point(i, 0, 10), radius));
     scene.Traceables.Add(new Sphere(new Point(-i, 0, 10), radius));
 }
-// scene.Traceables.Add(new Sphere(new Point(-2, -3, 5), 0.5f));
+
+// var transformation = Matrix.Identity(4).Rotate(MathExtensions.DegreeToRad(10), 0, 0);
+// var transformation = Matrix.Identity(4).Translate(0, -0.5f, 0);
+Matrix transformation = null;
 
 var camera = new Camera(new CameraSettings()
 {
-    Fov = 30,
-    Resolution =  new Vector2Int(1024,1024)
-}, scene);
+    Fov = 80,
+    Resolution =  new Vector2Int(60,100),
+    Origin = new Point(0, 0, 0),
+    Direction = new Vector3(0, 0, 1),
+    Transformation = transformation
+}, 
+    scene);
+
 var bitmap = camera.Render();
-var stream = File.Open("pic.bmp", FileMode.OpenOrCreate);
-var exporter = new BmpImageExporter(stream, bitmap);
+var exporter = new AsciiImageExporter(Console.OpenStandardOutput(), bitmap);
+
+// var stream = File.Open("pic2.bmp", FileMode.OpenOrCreate);
+// var exporter = new BmpImageExporter(stream, bitmap);
+
 exporter.Export();
-stream.Close();
-
-
+// stream.Close();
+// Console.ReadKey();

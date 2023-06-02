@@ -5,11 +5,13 @@ namespace Core.SceneObjects;
 
 public class Scene
 {
+    public ICamera Camera;
     public List<ITraceable> Traceables;
     public List<ILight> Lights;
 
-    public Scene(List<ITraceable> traceables, List<ILight> lights)
+    public Scene(ICamera camera, List<ITraceable> traceables, List<ILight> lights)
     {
+        Camera = camera;
         Traceables = traceables;
         Lights = lights;
     }

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.cspro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageManipulation", "src\ImageManipulation\ImageManipulation.csproj", "{31A0736C-ED56-420E-99AE-344569F86281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeshManipulation", "src\MeshManipulation\MeshManipulation.csproj", "{74EDE040-EACE-49FD-BF25-E00E68C3F15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{31A0736C-ED56-420E-99AE-344569F86281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31A0736C-ED56-420E-99AE-344569F86281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31A0736C-ED56-420E-99AE-344569F86281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74EDE040-EACE-49FD-BF25-E00E68C3F15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74EDE040-EACE-49FD-BF25-E00E68C3F15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74EDE040-EACE-49FD-BF25-E00E68C3F15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74EDE040-EACE-49FD-BF25-E00E68C3F15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

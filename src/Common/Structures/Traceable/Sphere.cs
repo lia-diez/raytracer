@@ -1,4 +1,5 @@
 ﻿using Common.Primitives;
+using Common.Structures.Numerics;
 
 namespace Common.Structures.Traceable;
 
@@ -17,9 +18,9 @@ public class Sphere : ITraceable
     {
         var k = ray.Origin - Center;
         
-        var a = Vector.DotProduct(ray.Direction, ray.Direction);
-        var b = 2 * Vector.DotProduct(ray.Direction, k);
-        var c = Vector.DotProduct(k, k) - Radius * Radius;
+        var a = Vector3.DotProduct(ray.Direction, ray.Direction);
+        var b = 2 * Vector3.DotProduct(ray.Direction, k);
+        var c = Vector3.DotProduct(k, k) - Radius * Radius;
 
         var result = SolveQuadraticEquation(a, b, c);
         if (result == null) return null;
@@ -31,7 +32,7 @@ public class Sphere : ITraceable
         return ray.Origin.Translate(ray.Direction * closestDistance);
     }
 
-    public Vector GetNormal(Point point) => point - Center;
+    public Vector3 GetNormal(Point point) => point - Center;
 
     private IEnumerable<float>? SolveQuadraticEquation(float a, float b, float c)
     {
