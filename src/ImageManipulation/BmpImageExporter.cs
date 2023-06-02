@@ -21,8 +21,8 @@ public class BmpImageExporter : IImageExporter
         br.Write(0);
         br.Write(54);
         br.Write(40);
-        br.Write(Bitmap.Resolution.X);
         br.Write(Bitmap.Resolution.Y);
+        br.Write(Bitmap.Resolution.X);
         //[1, 0, 24, 0]
         br.Write(1572865);
         for (int i = 0; i < 6; i++)
