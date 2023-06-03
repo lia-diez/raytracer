@@ -15,9 +15,10 @@ var scene = new Scene();
 
 scene.Lights.Add(new DirectionLight(new Vector3(1, 1, 0)));
 
-var cow = ObjReader.ReadObj(@"C:\Users\proku\Downloads\cow.obj");
+var cow = ObjReader.ReadObj(@"cow.obj");
 cow = Transformer.Transform(cow, new Matrix(4)
     .Translate(0, 0, 0.4f)
+    .Rotate(0, (float)Math.PI/13, (float)Math.PI/16)
     .Rotate((float)Math.PI, 0, 0)
     .Scale(1f, 2f, 1f));
 scene.Traceables.Add(cow);
@@ -39,6 +40,21 @@ var camera = new Camera(new CameraSettings()
 
 #endregion
 
+// #region shadowSphereCheck
+//
+// scene.Lights.Add(new DirectionLight(new Vector3(0, -1, 0)));
+//
+// scene.Traceables.Add(new Sphere(new Point(0, -4, 10), 1f));
+// scene.Traceables.Add(new Sphere(new Point(0, 0, 10), 1.5f));
+// scene.Traceables.Add(new Sphere(new Point(0, 4, 10), 2f));
+//
+// var camera = new Camera(new CameraSettings()
+// {
+//     Resolution = new Vector2Int(512, 1024),
+//     Fov = 60
+// }, scene);
+//
+// #endregion
 
 var bitmap = camera.Render();
 

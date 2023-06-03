@@ -103,7 +103,7 @@ public class Camera : ICamera
             foreach (var iTraceable in _scene.Traceables)
             {
                 var intersection = iTraceable.Intersects(shadowRay);
-                if (intersection.Item1 && intersection.Item2 != iTraceable)
+                if (intersection.Item1 && closest.Traceable != iTraceable)
                 {
                     intersects = true;
                     break;

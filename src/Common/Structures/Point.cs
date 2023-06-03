@@ -20,7 +20,7 @@ public class Point
     {
         return new Point(X + translation.X, Y + translation.Y, Z + translation.Z);
     }
-    
+
     public static Vector3 operator -(Point p1, Point p2)
     {
         return new Vector3(p1.X - p2.X, p1.Y - p2.Y, p1.Z - p2.Z);
@@ -37,5 +37,14 @@ public class Point
         X = this.X;
         Y = this.Y;
         Z = this.Z;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
+            return false;
+        return obj is Point point && Math.Abs(X - point.X) < 0.000001 
+                                  && Math.Abs(Y - point.Y) < 0.000001
+                                  && Math.Abs(Z - point.Z) < 0.000001;
     }
 }
