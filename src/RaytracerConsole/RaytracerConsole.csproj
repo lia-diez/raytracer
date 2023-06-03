@@ -11,6 +11,7 @@
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\ImageManipulation\ImageManipulation.csproj" />
+      <ProjectReference Include="..\MeshManipulation\MeshManipulation.csproj" />
     </ItemGroup>
 
 </Project>

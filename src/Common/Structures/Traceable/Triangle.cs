@@ -5,28 +5,26 @@ namespace Common.Structures.Traceable;
 
 public class Triangle : ITraceable
 {
-    public Point A;
-    public Point B;
-    public Point C;
+    public Point A => Points[0];
+    public Point B => Points[1];
+    public Point C => Points[2];
 
+    public Point[] Points;
     public Vector3 Normal;
     
     public Triangle(Point a, Point b, Point c)
     {
-        A = a;
-        B = b;
-        C = c;
+        Points = new[] { a, b, c };
+        Normal = Vector3.CrossProduct(B-A, C-A).Normalize();
     }
 
     public Triangle(Point a, Point b, Point c, Vector3 normal)
     {
-        A = a;
-        B = b;
-        C = c;
+        Points = new[] { a, b, c };
         Normal = normal;
     }
     
-    public Point? FindIntersection(Ray ray)
+    public TraceResult? Trace(Ray ray)
     {
         const float epsilon = 0.0000001f;
         var edge1 = B - A;
@@ -55,13 +53,9 @@ public class Triangle : ITraceable
         if (t > epsilon)
         {
             var outIntersectionPoint = ray.Origin.Translate(ray.Direction * t);
-            return outIntersectionPoint;
+            return new TraceResult(Normal, outIntersectionPoint);
         }
 
         return null;
     }
-
-    public Vector3 GetNormal(Point point) => Normal;
-
-    public Point[] GetPoints => new[] { A, B, C };
 }

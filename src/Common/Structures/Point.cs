@@ -2,9 +2,20 @@
 
 namespace Common.Structures;
 
-public record Point (float X, float Y, float Z)
+public class Point
 {
+    public Point(float X, float Y, float Z)
+    {
+        this.X = X;
+        this.Y = Y;
+        this.Z = Z;
+    }
+
     public static Point Zero => new Point(0, 0, 0);
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Z { get; set; }
+
     public Point Translate(Vector3 translation)
     {
         return new Point(X + translation.X, Y + translation.Y, Z + translation.Z);
@@ -19,5 +30,12 @@ public record Point (float X, float Y, float Z)
     {
         var p3 = p2 - p1;
         return (float)Math.Sqrt(p3.X * p3.X + p3.Y * p3.Y + p3.Z * p3.Z);
+    }
+
+    public void Deconstruct(out float X, out float Y, out float Z)
+    {
+        X = this.X;
+        Y = this.Y;
+        Z = this.Z;
     }
 }

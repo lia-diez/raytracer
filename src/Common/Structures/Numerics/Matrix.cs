@@ -1,4 +1,7 @@
-﻿namespace Common.Structures.Numerics;
+﻿using System.Text;
+using Common.Extensions;
+
+namespace Common.Structures.Numerics;
 
 public class Matrix
 {
@@ -15,6 +18,12 @@ public class Matrix
     {
         _rawMatrix = new float[size.X, size.Y];
         Size = size;
+    }
+    
+    public Matrix(int size)
+    {
+        Size = new Vector2Int(size, size);
+        _rawMatrix = IdentityArray(size);
     }
 
     public Matrix(int x, int y)
@@ -38,6 +47,17 @@ public class Matrix
         }
 
         return new Matrix(result);
+    }
+    
+    public static float[,] IdentityArray(int n)
+    {
+        var result = new float[n, n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i, i] = 1;
+        }
+
+        return result;
     }
 
     public static Matrix operator *(Matrix first, Matrix second)
@@ -75,5 +95,26 @@ public class Matrix
     public Matrix Translate(float x, float y, float z)
     {
         return this * MutationMatrix.FromTranslation(x, y, z);
+    }
+
+    public Matrix Copy()
+    {
+        return new Matrix(TwoDimensionalArray<float>.Copy(_rawMatrix));
+    }
+
+    public override string ToString()
+    {
+        var strBuilder = new StringBuilder();
+        for (int i = 0; i < Size.X; i++)
+        {
+            for (int j = 0; j < Size.Y; j++)
+            {
+                strBuilder.Append($"{this[i, j]} ");
+            }
+
+            strBuilder.Append('\n');
+        }
+        
+        return strBuilder.ToString();
     }
 }

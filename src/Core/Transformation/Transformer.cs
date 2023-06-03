@@ -8,17 +8,8 @@ public static class Transformer
 {
     public static Vector3 Transform(Vector3 vector, Matrix transformation)
     {
-        // if (Math.Pow(transformation[0, 0], 2) + Math.Pow(transformation[0, 1], 2) == 1 &&
-        //     Math.Pow(transformation[1, 0], 2) + Math.Pow(transformation[1, 1], 2) == 1 &&
-        //     transformation[0, 2] == 0 && transformation[1, 2] == 0 &&
-        //     transformation[2, 0] == 0 && transformation[2, 1] == 0)
-        // {
-            var temp = transformation * new Matrix(new[,] { { vector.X }, { vector.Y }, { vector.Z }, { 1 } });
-            return new Vector3(temp[0, 0], temp[1, 0], temp[2, 0]).Normalize();
-        // }
-
-        // throw new Exception(
-            // $"You cannot scale or translate vector. The problem is with ({vector.X} {vector.Y} {vector.Z})");
+        var temp = transformation * new Matrix(new[,] { { vector.X }, { vector.Y }, { vector.Z }, { 1 } });
+        return new Vector3(temp[0, 0], temp[1, 0], temp[2, 0]).Normalize();
     }
 
     public static Point Transform(Point point, Matrix transformation)
@@ -26,17 +17,41 @@ public static class Transformer
         var temp = transformation * new Matrix(new[,] { { point.X }, { point.Y }, { point.Z }, { 1 } });
         return new Point(temp[0, 0], temp[1, 0], temp[2, 0]);
     }
-    
+
     public static Triangle Transform(Triangle triangle, Matrix transformation)
     {
         var points = new Point[3];
-        for (var index = 0; index < triangle.GetPoints.Length; index++)
+        for (var index = 0; index < triangle.Points.Length; index++)
         {
-            var point = triangle.GetPoints[index];
+            var point = triangle.Points[index];
             var temp = transformation * new Matrix(new[,] { { point.X }, { point.Y }, { point.Z }, { 1 } });
-            points[index] = new Point(temp[3, 0], temp[3, 1], temp[3, 2]);
+            points[index] = new Point(temp[0, 0], temp[1, 0], temp[2, 0]);
         }
 
         return new Triangle(points[0], points[1], points[2]);
+    }
+
+    public static Mesh Transform(Mesh mesh, Matrix transformation)
+    {
+        var temp = new HashSet<Point>();
+        foreach (var triangle in mesh.Triangles)
+        {
+            temp.Add(triangle.A);
+            temp.Add(triangle.B);
+            temp.Add(triangle.C);
+        }
+
+        var points = temp.ToList();
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            var temp2 = transformation *
+                        new Matrix(new[,] { { points[i].X }, { points[i].Y }, { points[i].Z }, { 1 } });
+            points[i].X = temp2[0, 0];
+            points[i].Y = temp2[1, 0];
+            points[i].Z = temp2[2, 0];
+        }
+
+        return mesh;
     }
 }

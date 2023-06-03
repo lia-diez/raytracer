@@ -14,7 +14,7 @@ public class Sphere : ITraceable
         Radius = radius;
     }
 
-    public Point? FindIntersection(Ray ray)
+    public TraceResult? Trace(Ray ray)
     {
         var k = ray.Origin - Center;
         
@@ -28,11 +28,11 @@ public class Sphere : ITraceable
         var valid = result.Where(t => t >= 0);
         if (!valid.Any()) return null;
         var closestDistance = valid.Min();
-        
-        return ray.Origin.Translate(ray.Direction * closestDistance);
-    }
 
-    public Vector3 GetNormal(Point point) => point - Center;
+        var point = ray.Origin.Translate(ray.Direction * closestDistance);
+        
+        return new TraceResult(point - Center, point);
+    }
 
     private IEnumerable<float>? SolveQuadraticEquation(float a, float b, float c)
     {

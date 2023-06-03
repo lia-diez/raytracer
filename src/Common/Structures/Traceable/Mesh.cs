@@ -1,6 +1,9 @@
-﻿namespace Common.Structures.Traceable;
+﻿using Common.Primitives;
+using Common.Structures.Numerics;
 
-public class Mesh
+namespace Common.Structures.Traceable;
+
+public class Mesh : ITraceable
 {
     public List<Triangle> Triangles;
 
@@ -12,5 +15,25 @@ public class Mesh
     public Mesh(List<Triangle> triangles)
     {
         Triangles = triangles;
+    }
+
+    public TraceResult? Trace(Ray ray)
+    {
+        var minDist = float.MaxValue;
+        TraceResult? closest = null;
+        foreach (var triangle in Triangles)
+        {
+            var intersection = triangle.Trace(ray);
+            if (intersection == null) continue;
+            
+            var distance = Point.GetDistance(ray.Origin, intersection.IntersectionPoint);
+            if (distance < minDist)
+            {
+                closest = intersection;
+                minDist = distance;
+            }
+        }
+
+        return closest;
     }
 }
