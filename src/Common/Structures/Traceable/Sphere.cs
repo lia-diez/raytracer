@@ -31,7 +31,22 @@ public class Sphere : ITraceable
 
         var point = ray.Origin.Translate(ray.Direction * closestDistance);
         
-        return new TraceResult(point - Center, point);
+        return new TraceResult( this, point - Center, point);
+    }
+
+    public (bool, ITraceable) Intersects(Ray ray)
+    {
+        var k = ray.Origin - Center;
+        
+        var a = Vector3.DotProduct(ray.Direction, ray.Direction);
+        var b = 2 * Vector3.DotProduct(ray.Direction, k);
+        var c = Vector3.DotProduct(k, k) - Radius * Radius;
+
+        var result = SolveQuadraticEquation(a, b, c);
+        if (result == null) return (false, this);
+
+        var valid = result.Where(t => t >= 0);
+        return (valid.Any(), this);
     }
 
     private IEnumerable<float>? SolveQuadraticEquation(float a, float b, float c)

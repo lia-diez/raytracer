@@ -95,9 +95,24 @@ public class Camera : ICamera
             }
         }
 
-        var color = closest == null
-            ? new Color(0)
-            : new Color(light.ComputeColor(closest.Normal));
+        var color = new Color(0);
+        if (closest != null)
+        {
+            var shadowRay = new Ray(closest.IntersectionPoint, light.Direction);
+            var intersects = false;
+            foreach (var iTraceable in _scene.Traceables)
+            {
+                var intersection = iTraceable.Intersects(shadowRay);
+                if (intersection.Item1 && intersection.Item2 != iTraceable)
+                {
+                    intersects = true;
+                    break;
+                }
+            }
+            
+            if (!intersects)
+                color = new Color(light.ComputeColor(closest.Normal));
+        }
 
         return color;
     }

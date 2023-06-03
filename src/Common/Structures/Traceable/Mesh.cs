@@ -36,4 +36,15 @@ public class Mesh : ITraceable
 
         return closest;
     }
+
+    public (bool, ITraceable) Intersects(Ray ray)
+    {
+        foreach (var triangle in Triangles)
+        {
+            var intersects = triangle.Intersects(ray);
+            if (intersects.Item1 && intersects.Item2 != triangle) return (true, this);
+        }
+
+        return (false, this);
+    }
 }

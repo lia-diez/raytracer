@@ -117,4 +117,25 @@ public class Matrix
         
         return strBuilder.ToString();
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
+            return false;
+        if (obj is Matrix matrix && matrix.Size.X == Size.X && matrix.Size.Y == Size.Y)
+        {
+            for (int i = 0; i < Size.X; i++)
+            {
+                for (int j = 0; j < Size.Y; j++)
+                {
+                    if (Math.Abs(matrix[i, j] - this[i, j]) > 0.00001)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 }

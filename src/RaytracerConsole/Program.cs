@@ -10,7 +10,10 @@ using MeshManipulation;
 using raytracer;
 
 var scene = new Scene();
-scene.Lights.Add(new DirectionLight(new Vector3(1, 0, 0)));
+
+#region dachshundCow
+
+scene.Lights.Add(new DirectionLight(new Vector3(1, 1, 0)));
 
 var cow = ObjReader.ReadObj(@"C:\Users\proku\Downloads\cow.obj");
 cow = Transformer.Transform(cow, new Matrix(4)
@@ -18,6 +21,7 @@ cow = Transformer.Transform(cow, new Matrix(4)
     .Rotate((float)Math.PI, 0, 0)
     .Scale(1f, 2f, 1f));
 scene.Traceables.Add(cow);
+
 
 var transformation = new Matrix(4)
     // .Scale(0.95f, 1.1f, 1.05f)
@@ -32,6 +36,9 @@ var camera = new Camera(new CameraSettings()
         Transformation = transformation
     },
     scene);
+
+#endregion
+
 
 var bitmap = camera.Render();
 
