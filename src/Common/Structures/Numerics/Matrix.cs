@@ -1,4 +1,7 @@
-﻿namespace Common.Structures.Numerics;
+﻿using System.Text;
+using Common.Extensions;
+
+namespace Common.Structures.Numerics;
 
 public class Matrix
 {
@@ -15,6 +18,12 @@ public class Matrix
     {
         _rawMatrix = new float[size.X, size.Y];
         Size = size;
+    }
+    
+    public Matrix(int size)
+    {
+        Size = new Vector2Int(size, size);
+        _rawMatrix = IdentityArray(size);
     }
 
     public Matrix(int x, int y)
@@ -39,11 +48,22 @@ public class Matrix
 
         return new Matrix(result);
     }
+    
+    public static float[,] IdentityArray(int n)
+    {
+        var result = new float[n, n];
+        for (int i = 0; i < n; i++)
+        {
+            result[i, i] = 1;
+        }
+
+        return result;
+    }
 
     public static Matrix operator *(Matrix first, Matrix second)
     {
         if (first.Size.Y != second.Size.X) 
-            throw new ArgumentException("First matric o-jpsdjfosjf");
+            throw new ArgumentException("First matrix Y have to be equal to second matrix X");
 
         var result = new Matrix(first.Size.X, second.Size.Y);
 
@@ -75,5 +95,47 @@ public class Matrix
     public Matrix Translate(float x, float y, float z)
     {
         return this * MutationMatrix.FromTranslation(x, y, z);
+    }
+
+    public Matrix Copy()
+    {
+        return new Matrix(TwoDimensionalArray<float>.Copy(_rawMatrix));
+    }
+
+    public override string ToString()
+    {
+        var strBuilder = new StringBuilder();
+        for (int i = 0; i < Size.X; i++)
+        {
+            for (int j = 0; j < Size.Y; j++)
+            {
+                strBuilder.Append($"{this[i, j]} ");
+            }
+
+            strBuilder.Append('\n');
+        }
+        
+        return strBuilder.ToString();
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
+            return false;
+        if (obj is Matrix matrix && matrix.Size.X == Size.X && matrix.Size.Y == Size.Y)
+        {
+            for (int i = 0; i < Size.X; i++)
+            {
+                for (int j = 0; j < Size.Y; j++)
+                {
+                    if (matrix[i, j].Equalish(this[i, j]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

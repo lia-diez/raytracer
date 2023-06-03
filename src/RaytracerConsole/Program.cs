@@ -1,48 +1,54 @@
 using Common.Extensions;
 using Common.Light;
-using Common.Structures;
-using Common.Structures.Traceable;
 using Common.Structures.Numerics;
 using Core.SceneObjects;
+using MeshManipulation;
 using raytracer;
 
-var scene = new Scene();
-scene.Lights.Add(new DirectionLight(new Vector3(1, 0, 0)));
+namespace RaytracerConsole;
 
-var radius = 0.5f;
-scene.Traceables.Add(new Sphere(new Point(0, 0, 10), radius));
-for (int i = 1; i < 5; i++)
+class Program
 {
-    scene.Traceables.Add(new Sphere(new Point(-i, i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(i, i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(i, -i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(-i, -i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(0, i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(0, -i, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(i, 0, 10), radius));
-    scene.Traceables.Add(new Sphere(new Point(-i, 0, 10), radius));
+    static void Main(string[] args)
+    {
+        string objFile = "", imageFile = "";
+        foreach (string arg in args)
+        {
+            if (arg.StartsWith("--source="))
+            {
+                objFile = arg["--source=".Length..];
+            }
+            else if (arg.StartsWith("--output="))
+            {
+                imageFile = arg["--output=".Length..];
+            }
+        }
+
+        var mesh = ObjReader.ReadObj(objFile);
+        var scene = new Scene();
+
+        scene.Lights.Add(new DirectionLight(new Vector3(1, 1, 0)));
+        scene.Traceables.Add(mesh);
+
+        var transformation = new Matrix(4)
+            .Scale(0.95f, 1.1f, 1.05f)
+            .Translate(0, 0, -0.4f)
+            .Rotate(0, -MathExtensions.DegreeToRad(100), 0)
+            .Translate(0, 0, -0.9f);
+
+        var camera = new Camera(new CameraSettings()
+        {
+            Resolution = new Vector2Int(100, 100),
+            Fov = 60,
+            Transformation = transformation
+        }, scene);
+
+        var bitmap = camera.Render();
+
+        var stream = File.Open(imageFile, FileMode.OpenOrCreate);
+        var exporter = new BmpImageExporter(stream, bitmap);
+
+        exporter.Export();
+        stream.Close();
+    }
 }
-
-// var transformation = Matrix.Identity(4).Rotate(MathExtensions.DegreeToRad(10), 0, 0);
-// var transformation = Matrix.Identity(4).Translate(0, -0.5f, 0);
-Matrix transformation = null;
-
-var camera = new Camera(new CameraSettings()
-{
-    Fov = 80,
-    Resolution =  new Vector2Int(60,100),
-    Origin = new Point(0, 0, 0),
-    Direction = new Vector3(0, 0, 1),
-    Transformation = transformation
-}, 
-    scene);
-
-var bitmap = camera.Render();
-var exporter = new AsciiImageExporter(Console.OpenStandardOutput(), bitmap);
-
-// var stream = File.Open("pic2.bmp", FileMode.OpenOrCreate);
-// var exporter = new BmpImageExporter(stream, bitmap);
-
-exporter.Export();
-// stream.Close();
-// Console.ReadKey();

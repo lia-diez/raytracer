@@ -5,6 +5,6 @@ namespace Common.Primitives;
 
 public interface ITraceable
 {
-    public Point? FindIntersection(Ray ray);
-    public Vector3 GetNormal(Point point);
+    public TraceResult? Trace(Ray ray);
+    public (bool, ITraceable) Intersects(Ray ray);
 }

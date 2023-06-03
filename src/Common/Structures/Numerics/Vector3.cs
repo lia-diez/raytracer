@@ -54,4 +54,9 @@ public record Vector3(float X, float Y, float Z)
         var z = (v1.X * v2.Y) - (v1.Y * v2.X);
         return new Vector3(x, y, z);
     }
+
+    public override string ToString()
+    {
+        return $"{X} {Y} {Z}";
+    }
 }
