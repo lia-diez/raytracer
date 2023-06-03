@@ -63,7 +63,7 @@ public class Matrix
     public static Matrix operator *(Matrix first, Matrix second)
     {
         if (first.Size.Y != second.Size.X) 
-            throw new ArgumentException("First matric o-jpsdjfosjf");
+            throw new ArgumentException("First matrix Y have to be equal to second matrix X");
 
         var result = new Matrix(first.Size.X, second.Size.Y);
 
@@ -128,7 +128,7 @@ public class Matrix
             {
                 for (int j = 0; j < Size.Y; j++)
                 {
-                    if (Math.Abs(matrix[i, j] - this[i, j]) > 0.00001)
+                    if (matrix[i, j].Equalish(this[i, j]))
                         return false;
                 }
             }

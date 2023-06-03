@@ -39,12 +39,13 @@ public class Mesh : ITraceable
 
     public (bool, ITraceable) Intersects(Ray ray)
     {
+        (bool, ITraceable) intersects = (false, Triangles.First());
         foreach (var triangle in Triangles)
         {
-            var intersects = triangle.Intersects(ray);
-            if (intersects.Item1 && intersects.Item2 != triangle) return (true, this);
+            intersects = triangle.Intersects(ray);
+            if (intersects.Item1 && intersects.Item2 != triangle) return intersects;
         }
 
-        return (false, this);
+        return (false, intersects.Item2);
     }
 }

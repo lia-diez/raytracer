@@ -1,4 +1,5 @@
-﻿using Common.Structures.Numerics;
+﻿using Common.Extensions;
+using Common.Structures.Numerics;
 
 namespace Common.Structures;
 
@@ -43,8 +44,7 @@ public class Point
     {
         if (obj is null)
             return false;
-        return obj is Point point && Math.Abs(X - point.X) < 0.000001 
-                                  && Math.Abs(Y - point.Y) < 0.000001
-                                  && Math.Abs(Z - point.Z) < 0.000001;
+        return obj is Point point && X.Equalish(point.X) && Y.Equalish(point.Y)
+               && Z.Equalish(point.Z);
     }
 }

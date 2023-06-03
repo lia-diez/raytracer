@@ -104,7 +104,6 @@ public static class MutationMatrix
     }
     
     // from System.Numerics Matrix4x4
-
     #region CalcRotationMatrix
     public static Matrix CalculateRotationMatrix(Vector3 first, Vector3 second)
     {
