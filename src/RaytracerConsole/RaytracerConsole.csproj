@@ -12,6 +12,7 @@
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\ImageManipulation\ImageManipulation.csproj" />
       <ProjectReference Include="..\MeshManipulation\MeshManipulation.csproj" />
+      <ProjectReference Include="..\OptimisationTree\OptimisationTree.csproj" />
     </ItemGroup>
 
 </Project>

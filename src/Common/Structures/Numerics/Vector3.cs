@@ -32,9 +32,14 @@ public record Vector3(float X, float Y, float Z)
         return v * multiplier;
     }
 
-    public static Vector3 operator /(Vector3 v, float divider)
+    public static Vector3 operator /(Vector3 v, float divisor)
     {
-        return new Vector3(v.X / divider, v.Y / divider, v.Z / divider);
+        return new Vector3(v.X / divisor, v.Y / divisor, v.Z / divisor);
+    }
+    
+    public static Vector3 operator /(float dividend, Vector3 v)
+    {
+        return new Vector3(dividend / v.X, dividend / v.Y, dividend / v.Z);
     }
 
     public static Vector3 operator -(Vector3 v)

@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fe2299c0_002D5db4_002D4928_002Db598_002D69a711b6fdbc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IsRemoved_MatricesAreEqual" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::95ABDBE5-4797-46F9-BFE3-54BE44E78F0A::net7.0::Tests.TriangleIntersectionTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::95ABDBE5-4797-46F9-BFE3-54BE44E78F0A::net7.0::Tests.BoxIntersectionTests.Intersects&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

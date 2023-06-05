@@ -7,8 +7,9 @@ public class AxisBox
 {
     public List<Triangle> Triangles;
 
-    public (float X, float Y, float Z) Min;
-    public (float X, float Y, float Z) Max;
+    public (float X, float Y, float Z) Min => Bounds[0];
+    public (float X, float Y, float Z) Max => Bounds[1];
+    public (float X, float Y, float Z)[] Bounds;
 
     private float? _surface;
 
@@ -23,8 +24,7 @@ public class AxisBox
 
     public AxisBox((float X, float Y, float Z) min, (float X, float Y, float Z) max)
     {
-        Min = min;
-        Max = max;
+        Bounds = new[] { min, max };
         Triangles = new List<Triangle>();
     }
 
@@ -50,57 +50,32 @@ public class AxisBox
 
     public bool Intersects(Ray ray)
     {
-        float tmin, tmax, tymin, tymax, tzmin, tzmax;
-        if (ray.Direction.X >= 0)
-        {
-            tmin = (Min.X - ray.Origin.X) / ray.Direction.X;
-            tmax = (Max.X - ray.Origin.X) / ray.Direction.X;
-        }
-        else
-        {
-            tmin = (Max.X - ray.Origin.X) / ray.Direction.X;
-            tmax = (Min.X - ray.Origin.X) / ray.Direction.X;
-        }
-
-        if (ray.Direction.Y >= 0)
-        {
-            tymin = (Min.Y - ray.Origin.Y) / ray.Direction.Y;
-            tymax = (Max.Y - ray.Origin.Y) / ray.Direction.Y;
-        }
-        else
-        {
-            tymin = (Max.Y - ray.Origin.Y) / ray.Direction.Y;
-            tymax = (Min.Y - ray.Origin.Y) / ray.Direction.Y;
-        }
-
-        if (tmin > tymax || tymin > tmax)
+        float txmin, txmax, tymin, tymax, tzmin, tzmax;
+        
+        txmin = (Bounds[ray.Signs.X].X - ray.Origin.X) * ray.InversedDirection.X;
+        txmax = (Bounds[1-ray.Signs.X].X - ray.Origin.X) * ray.InversedDirection.X;
+        tymin = (Bounds[ray.Signs.Y].Y - ray.Origin.Y) * ray.InversedDirection.Y;
+        tymax = (Bounds[1-ray.Signs.Y].Y - ray.Origin.Y) * ray.InversedDirection.Y;
+    
+        if (txmin > tymax || tymin > txmax)
             return false;
-        
-        if (tymin > tmin)
-            tmin = tymin;
-        if (tymax < tmax)
-            tmax = tymax;
-        
-        if (ray.Direction.Z >= 0)
-        {
-            tzmin = (Min.Z - ray.Origin.Z) / ray.Direction.Z;
-            tzmax = (Max.Z - ray.Origin.Z) / ray.Direction.Z;
-        }
-        else
-        {
-            tzmin = (Max.Z - ray.Origin.Z) / ray.Direction.Z;
-            tzmax = (Min.Z - ray.Origin.Z) / ray.Direction.Z;
-        }
 
-        if (tmin > tzmax || tzmin > tmax)
+        if (tymin > txmin)
+            txmin = tymin;
+        if (tymax < txmax)
+            txmax = tymax;
+    
+        tzmin = (Bounds[ray.Signs.Z].Z - ray.Origin.Z) * ray.InversedDirection.Z;
+        tzmax = (Bounds[1-ray.Signs.Z].Z - ray.Origin.Z) * ray.InversedDirection.Z;
+    
+        if (txmin > tzmax || tzmin > txmax)
             return false;
-        if (tzmin > tmin)
-            tmin = tzmin;
-        if (tzmax < tmax)
-            tmax = tzmax;
-        
-        return ((tmin < t1) && (tmax > t0));
+
+        if (tzmin > txmin)
+            txmin = tzmin;
+        if (tzmax < txmax)
+            txmax = tzmax;
+
+        return true;
     }
-}
-
 }
