@@ -85,4 +85,6 @@ public class Triangle : ITraceable
 
         return (t > epsilon, this);
     }
+
+    public Point GetCenter() => new Point((A.X + B.X + C.X) / 3, (A.Y + B.Y + C.Y) / 3, (A.Z + B.Z + C.Z) / 3);
 }
