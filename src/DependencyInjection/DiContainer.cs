@@ -28,10 +28,6 @@ public class DiContainer
         var deps = service.Dependencies;
         var args = deps?.Select(GetService).ToArray();
         
-        service.ResolveDeps(args);
-        if (service.Instance != null) return service.Instance;
-        
-        return default;
-
+        return service.ResolveDeps(args);
     }
 }

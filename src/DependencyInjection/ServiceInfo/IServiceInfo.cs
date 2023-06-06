@@ -9,5 +9,5 @@ public interface IServiceInfo
 
     public IEnumerable<Type>? Dependencies { get;}
 
-    public void ResolveDeps(object?[]? args);
+    public object ResolveDeps(object?[]? args);
 }

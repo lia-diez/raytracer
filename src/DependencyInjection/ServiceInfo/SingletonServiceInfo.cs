@@ -4,7 +4,7 @@ public class SingletonServiceInfo : IServiceInfo
 {
     public SingletonServiceInfo(Type? implementedInterface, Type actualType, object instance)
     {
-        Validate(implementedInterface, actualType);
+        ReflectionExtensions.ValidateImplementation(implementedInterface, actualType);
         ImplementedInterface = implementedInterface;
         ActualType = actualType;
         Instance = instance;
@@ -12,7 +12,7 @@ public class SingletonServiceInfo : IServiceInfo
 
     public SingletonServiceInfo(Type? implementedInterface, Type actualType)
     {
-        Validate(implementedInterface, actualType);
+        ReflectionExtensions.ValidateImplementation(implementedInterface, actualType);
         ImplementedInterface = implementedInterface;
         ActualType = actualType;
         Dependencies = actualType.GetDependencies().ToArray();
@@ -22,14 +22,7 @@ public class SingletonServiceInfo : IServiceInfo
         }
     }
 
-    private static void Validate(Type? implementedInterface, Type actualType)
-    {
-        if (implementedInterface == null) return;
-        if (!implementedInterface.IsInterface)
-            throw new Exception($"Implemented interface {implementedInterface.Name} is not an interface");
-        if (!actualType.IsAssignableTo(implementedInterface))
-            throw new Exception($"Type {actualType.Name} cannot be assigned to {implementedInterface.Name}");
-    }
+    
 
 
     public ServiceLifetime Lifetime => ServiceLifetime.Singleton;
@@ -39,8 +32,9 @@ public class SingletonServiceInfo : IServiceInfo
 
     public IEnumerable<Type>? Dependencies { get; }
 
-    public void ResolveDeps(object?[]? args)
+    public object ResolveDeps(object?[]? args)
     {
         Instance = Activator.CreateInstance(ActualType, args);
+        return Instance;
     }
 }

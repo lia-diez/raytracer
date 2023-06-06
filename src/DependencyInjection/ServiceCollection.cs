@@ -16,24 +16,11 @@ public class ServiceCollection
         return new DiContainer(_services);
     }
 
-    public void AddSingleton<T>(T instance)
+    public void Add(IServiceInfo serviceInfo)
     {
-        _services.Add(new SingletonServiceInfo(null, typeof(T), instance));
+        _services.Add(serviceInfo);
     }
-    
-    public void AddSingleton<T>()
-    {
-        _services.Add(new SingletonServiceInfo(null, typeof(T)));
-    }
-    
-    public void AddSingleton<TInterface, T>(T instance) where T : TInterface
-    {
-        _services.Add(new SingletonServiceInfo(null, typeof(T), instance));
-    }
-    
-    public void AddSingleton<TInterface,T>() where T : TInterface
-    {
-        _services.Add(new SingletonServiceInfo(null, typeof(T)));
-    }
+
+
 
 }
