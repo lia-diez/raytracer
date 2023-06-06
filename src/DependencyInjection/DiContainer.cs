@@ -14,16 +14,24 @@ public class DiContainer
             _services[service.ImplementedInterface ?? service.ActualType] = service;
         }
     }
-    
+
     public T GetService<T>()
     {
-        var service = _services[typeof(T)];
-        if (service.Instance == null)
-        {
-            //todo: 4eto
-            return default;
-        }
+        return (T)GetService(typeof(T));
+    }
+    
+    public object GetService(Type t)
+    {
+        var service = _services[t];
+        if (service.Instance != null) return service.Instance;
+
+        var deps = service.Dependencies;
+        var args = deps?.Select(GetService).ToArray();
         
-        return (T)service.Instance;
+        service.ResolveDeps(args);
+        if (service.Instance != null) return service.Instance;
+        
+        return default;
+
     }
 }

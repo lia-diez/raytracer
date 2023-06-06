@@ -21,5 +21,19 @@ public class ServiceCollection
         _services.Add(new SingletonServiceInfo(null, typeof(T), instance));
     }
     
+    public void AddSingleton<T>()
+    {
+        _services.Add(new SingletonServiceInfo(null, typeof(T)));
+    }
     
+    public void AddSingleton<TInterface, T>(T instance) where T : TInterface
+    {
+        _services.Add(new SingletonServiceInfo(null, typeof(T), instance));
+    }
+    
+    public void AddSingleton<TInterface,T>() where T : TInterface
+    {
+        _services.Add(new SingletonServiceInfo(null, typeof(T)));
+    }
+
 }

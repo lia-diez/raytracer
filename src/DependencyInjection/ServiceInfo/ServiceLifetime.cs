@@ -4,4 +4,5 @@ public enum ServiceLifetime
 {
     Singleton, 
     Transient,
+    Hosted
 }

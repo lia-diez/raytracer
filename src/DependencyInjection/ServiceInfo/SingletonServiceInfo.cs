@@ -16,6 +16,10 @@ public class SingletonServiceInfo : IServiceInfo
         ImplementedInterface = implementedInterface;
         ActualType = actualType;
         Dependencies = actualType.GetDependencies().ToArray();
+        if (!Dependencies.Any())
+        {
+            Instance = Activator.CreateInstance(ActualType);
+        }
     }
 
     private static void Validate(Type? implementedInterface, Type actualType)
