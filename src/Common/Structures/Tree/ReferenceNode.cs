@@ -1,4 +1,4 @@
-﻿namespace OptimisationTree;
+﻿namespace OptimisationTree.Trees;
 
 public abstract class ReferenceNode
 {

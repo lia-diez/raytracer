@@ -44,7 +44,7 @@ public static class ObjReader
     private static Triangle ParseTriangle(string[] coordinates, List<Point> points)
     {
         if (coordinates.Length != 3) throw new ArgumentException();
-        for (int i = 0; i < coordinates.Length; i++)
+        for (var i = 0; i < coordinates.Length; i++)
         {
             var s = coordinates[i];
             coordinates[i] = s[..s.IndexOf('/')];

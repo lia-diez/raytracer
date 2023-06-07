@@ -1,6 +1,6 @@
 ﻿using Common.Structures.Traceable;
 
-namespace OptimisationTree;
+namespace OptimisationTree.Trees;
 
 public class TrianglesNode : ReferenceNode
 {

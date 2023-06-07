@@ -35,6 +35,18 @@ public class BoxIntersectionTests
                 true
             },
             new object[]
+            {
+                new AxisBox((-1, -2, -3), (4, 0, 4)),
+                new Ray
+                (
+                    new Point
+                        (0.93f, -1.19f, -3)
+                    , new Vector3
+                        (1.87f, 2.31f, 0)
+                ),
+                true
+            },
+            new object[]
             {                
                 new AxisBox((-1, -2, -3), (4, 0, 4)),
                 new Ray
@@ -45,6 +57,42 @@ public class BoxIntersectionTests
                         (-3.46f, -1.88f, 0)
                 ),
                 false
+            },
+            new object[]
+            {                
+                new AxisBox((-1, -2, -3), (4, 0, 4)),
+                new Ray
+                (
+                    new Point
+                        (2.5f, -0.02f, -4)
+                    , new Vector3
+                        (-1.24f, -2.17f, 1.97f)
+                ),
+                true
+            },
+            new object[]
+            {                
+                new AxisBox((-1, -2, -3), (4, 0, 4)),
+                new Ray
+                (
+                    new Point
+                        (2.87f, 0.63f, -4.58f)
+                    , new Vector3
+                        (0.87f, 1.53f, -1.39f).Normalize()
+                ),
+                false
+            },
+            new object[]
+            {                
+                new AxisBox((-1, -2, -3), (4, 0, 4)),
+                new Ray
+                (
+                    new Point
+                        (4, -2, -3)
+                    , new Vector3
+                        (1.3f, 0, -2.5f).Normalize()
+                ),
+                true
             },
         };
 

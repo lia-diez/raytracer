@@ -26,7 +26,6 @@
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\MeshManipulation\MeshManipulation.csproj" />
-      <ProjectReference Include="..\OptimisationTree\OptimisationTree.csproj" />
     </ItemGroup>
 
 </Project>

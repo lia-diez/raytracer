@@ -41,7 +41,7 @@ public class Matrix
     public static Matrix Identity(int n)
     {
         var result = new float[n, n];
-        for (int i = 0; i < n; i++)
+        for (var i = 0; i < n; i++)
         {
             result[i, i] = 1;
         }
@@ -52,7 +52,7 @@ public class Matrix
     public static float[,] IdentityArray(int n)
     {
         var result = new float[n, n];
-        for (int i = 0; i < n; i++)
+        for (var i = 0; i < n; i++)
         {
             result[i, i] = 1;
         }
@@ -67,12 +67,12 @@ public class Matrix
 
         var result = new Matrix(first.Size.X, second.Size.Y);
 
-        for (int i = 0; i < first.Size.X; i++)
+        for (var i = 0; i < first.Size.X; i++)
         {
-            for (int j = 0; j < second.Size.Y; j++)
+            for (var j = 0; j < second.Size.Y; j++)
             {
                 var current = 0f;
-                for (int k = 0; k < second.Size.X; k++)
+                for (var k = 0; k < second.Size.X; k++)
                 {
                     current += first[i, k] * second[k, j];
                 }
@@ -105,9 +105,9 @@ public class Matrix
     public override string ToString()
     {
         var strBuilder = new StringBuilder();
-        for (int i = 0; i < Size.X; i++)
+        for (var i = 0; i < Size.X; i++)
         {
-            for (int j = 0; j < Size.Y; j++)
+            for (var j = 0; j < Size.Y; j++)
             {
                 strBuilder.Append($"{this[i, j]} ");
             }
@@ -124,9 +124,9 @@ public class Matrix
             return false;
         if (obj is Matrix matrix && matrix.Size.X == Size.X && matrix.Size.Y == Size.Y)
         {
-            for (int i = 0; i < Size.X; i++)
+            for (var i = 0; i < Size.X; i++)
             {
-                for (int j = 0; j < Size.Y; j++)
+                for (var j = 0; j < Size.Y; j++)
                 {
                     if (matrix[i, j].Equalish(this[i, j]))
                         return false;

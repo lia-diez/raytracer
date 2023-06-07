@@ -10,18 +10,26 @@ public class Triangle : ITraceable
     public Point C => Points[2];
 
     public Point[] Points;
-    public Vector3 Normal => Vector3.CrossProduct(B-A, C-A).Normalize();
+
+    private float[][]? _coordinates;
+    public float[][] Coordinates => _coordinates ??= new[]
+    {
+        new[] { A.X, B.X, C.X },
+        new[] { A.Y, B.Y, C.Y },
+        new[] { A.Z, B.Z, C.Z }
+    };
+
+    private Vector3? _normal;
+    public Vector3 Normal => _normal ??= Vector3.CrossProduct(B-A, C-A).Normalize();
     
+    private Point? _center;
+    public Point Center => _center ??= new Point((A.X + B.X + C.X) / 3, (A.Y + B.Y + C.Y) / 3, (A.Z + B.Z + C.Z) / 3);
+
     public Triangle(Point a, Point b, Point c)
     {
         Points = new[] { a, b, c };
     }
 
-    public Triangle(Point a, Point b, Point c, Vector3 normal)
-    {
-        Points = new[] { a, b, c };
-    }
-    
     public TraceResult? Trace(Ray ray)
     {
         const float epsilon = 0.0000001f;
@@ -46,7 +54,7 @@ public class Triangle : ITraceable
         if (v < 0.0 || u + v > 1.0)
             return null;
 
-        float t = f * Vector3.DotProduct(edge2, q);
+        var t = f * Vector3.DotProduct(edge2, q);
 
         if (t > epsilon)
         {
@@ -85,6 +93,4 @@ public class Triangle : ITraceable
 
         return (t > epsilon, this);
     }
-
-    public Point GetCenter() => new Point((A.X + B.X + C.X) / 3, (A.Y + B.Y + C.Y) / 3, (A.Z + B.Z + C.Z) / 3);
 }

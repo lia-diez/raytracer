@@ -2,7 +2,7 @@
 using Common.Structures.Numerics;
 using Common.Structures.Traceable;
 
-namespace Core;
+namespace Core.Transformation;
 
 public static class Transformer
 {
@@ -43,7 +43,7 @@ public static class Transformer
 
         var points = temp.ToList();
 
-        for (int i = 0; i < points.Count; i++)
+        for (var i = 0; i < points.Count; i++)
         {
             var temp2 = transformation *
                         new Matrix(new[,] { { points[i].X }, { points[i].Y }, { points[i].Z }, { 1 } });
