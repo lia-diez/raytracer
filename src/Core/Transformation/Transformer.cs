@@ -54,4 +54,29 @@ public static class Transformer
 
         return mesh;
     }
+    
+    public static TreeMesh Transform(TreeMesh mesh, Matrix transformation)
+    {
+        var temp = new HashSet<Point>();
+        foreach (var triangle in mesh.Triangles)
+        {
+            temp.Add(triangle.A);
+            temp.Add(triangle.B);
+            temp.Add(triangle.C);
+        }
+
+        var points = temp.ToList();
+
+        for (var i = 0; i < points.Count; i++)
+        {
+            var temp2 = transformation *
+                        new Matrix(new[,] { { points[i].X }, { points[i].Y }, { points[i].Z }, { 1 } });
+            points[i].X = temp2[0, 0];
+            points[i].Y = temp2[1, 0];
+            points[i].Z = temp2[2, 0];
+        }
+
+        mesh.Tree.Build(mesh.Triangles);
+        return mesh;
+    }
 }

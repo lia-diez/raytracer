@@ -67,7 +67,7 @@ public class Triangle : ITraceable
 
     public (bool, ITraceable) Intersects(Ray ray)
     {
-        const float epsilon = 0.0000001f;
+        const float epsilon = 0.00001f;
         var edge1 = B - A;
         var edge2 = C - A;
         var h = Vector3.CrossProduct(ray.Direction, edge2);

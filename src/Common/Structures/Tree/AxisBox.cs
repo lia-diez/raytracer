@@ -7,9 +7,8 @@ public class AxisBox
 {
     public float[] Min => Bounds[0];
     public float[] Max => Bounds[1];
-    public float[][] Bounds;
+    public readonly float[][] Bounds;
 
-    public List<Triangle> Triangles;
     public float Surface => CalculateSurface();
 
     public AxisBox((float x, float y, float z) min, (float x, float y, float z) max)
@@ -19,17 +18,6 @@ public class AxisBox
             new[] { min.x, min.y, min.z },
             new[] { max.x, max.y, max.z }
         };
-        Triangles = new List<Triangle>();
-    }
-    
-    public AxisBox((float x, float y, float z) min, (float x, float y, float z) max, List<Triangle> triangles)
-    {
-        Bounds = new[]
-        {
-            new[] { min.x, min.y, min.z },
-            new[] { max.x, max.y, max.z }
-        };
-        Triangles = triangles;
     }
 
     public AxisBox(float[] min, float[] max)
@@ -39,13 +27,11 @@ public class AxisBox
         Bounds[1] = new float[3];
         Array.Copy(min, Bounds[0], 3);
         Array.Copy(max, Bounds[1], 3);
-        Triangles = new List<Triangle>();
     }
     
     public AxisBox(float[][] bounds)
     {
         Bounds = bounds;
-        Triangles = new List<Triangle>();
     }
 
     private float CalculateSurface()

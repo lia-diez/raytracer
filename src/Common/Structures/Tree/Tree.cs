@@ -11,7 +11,7 @@ public class Tree
 {
     public static readonly float TriangleTime = 2.27f;
     public static readonly float BoxTime = 0.96f;
-    public static readonly int DivideNum = 5;
+    public static readonly int DivideNum = 10;
 
     public BoxNode Root;
     
@@ -72,8 +72,7 @@ public class Tree
            pair.right.Triangles.Count * TriangleTime * pair.right.Box.Surface / parent.Box.Surface;
 
     private List<Triangle>
-        GetTrianglesResizeChild(BoxNode node,
-            List<Triangle> triangles) // for first box bounds should be float minvalue and maxvalue
+        GetTrianglesResizeChild(BoxNode node, List<Triangle> triangles)
     {
         var result = new List<Triangle>();
         var newMin = node.Box.Bounds[0][node.DivideAxis];

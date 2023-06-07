@@ -7,7 +7,7 @@ namespace Common.Structures.Traceable;
 public class TreeMesh : ITraceable
 {
     public List<Triangle> Triangles;
-    public Tree Tree;
+    public Tree? Tree;
 
     public TreeMesh()
     {
@@ -63,9 +63,6 @@ public class TreeMesh : ITraceable
         var stack = new Stack<BoxNode>();
         stack.Push(Tree.Root);
         
-        var minDist = float.MaxValue;
-        TraceResult? closest = null;
-
         while (stack.TryPop(out var current))
         {
             var intersectsBox = current.Box.Intersects(ray);
@@ -80,8 +77,8 @@ public class TreeMesh : ITraceable
                 foreach (var triangle in current.Triangles)
                 {
                     (bool, ITraceable?) intersectsTriangle = triangle.Intersects(ray);
-                    if (intersectsTriangle.Item1 && intersectsTriangle.Item2 != triangle) return intersectsTriangle;
-            
+                    if (intersectsTriangle.Item1) 
+                        return intersectsTriangle;
                 }
             }
         }

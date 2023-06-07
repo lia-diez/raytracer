@@ -5,7 +5,7 @@ namespace MeshManipulation;
 
 public static class ObjReader
 {
-    public static Mesh ReadObj(string path)
+    public static List<Triangle> ReadObj(string path)
     {
         using var sr = new StreamReader(File.OpenRead(path));
         var vertices = new List<Point>();
@@ -25,7 +25,7 @@ public static class ObjReader
                     break;
             }
         }
-        return new Mesh(triangles);
+        return triangles;
     }
 
     private static Point ParsePoint(string[] coordinates)
