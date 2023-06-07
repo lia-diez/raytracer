@@ -1,3 +1,4 @@
+using DependencyInjection.DefaultServices;
 using DependencyInjection.ServiceInfo;
 
 namespace DependencyInjection;
@@ -32,5 +33,10 @@ public static class ServicesExtensions
     public static void AddTransient<TInterface,T>(this ServiceCollection services) where T : TInterface
     {
         services.Add(new TransientServiceInfo(typeof(TInterface), typeof(T)));
+    }
+
+    public static void AddArgs(this ServiceCollection services)
+    {
+        services.AddSingleton<IConfiguration, ConsoleArgsConfiguration>();
     }
 }

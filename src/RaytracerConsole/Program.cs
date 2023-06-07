@@ -3,9 +3,11 @@ using Common.Extensions;
 using Common.Structures;
 using Common.Structures.Numerics;
 using Common.Structures.Traceable;
+using Core;
 using Core.SceneObjects;
 using Core.SceneObjects.Light;
 using DependencyInjection;
+using DependencyInjection.DefaultServices;
 using MeshManipulation;
 using raytracer;
 
@@ -16,10 +18,16 @@ class Program
     static void Main(string[] args)
     {
         var services = new ServiceCollection();
-        services.AddSingleton<IImageExporter, BmpImageExporter>();
+        services.AddArgs();
+        services.AddTransient<IImageExporter, BmpImageExporter>();
         services.AddSingleton<ObjReader>();
+        services.AddSingleton<SceneService>();
+        services.AddSingleton<MainService>();
         
         var container = services.Build();
+        var main = container.GetService<MainService>();
+        main.Execute();
+        
 
         string objFile = "", imageFile = "";
         foreach (string arg in args)
