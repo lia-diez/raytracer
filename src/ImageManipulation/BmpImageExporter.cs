@@ -25,14 +25,14 @@ public class BmpImageExporter : IImageExporter
         br.Write(Bitmap.Resolution.X);
         //[1, 0, 24, 0]
         br.Write(1572865);
-        for (int i = 0; i < 6; i++)
+        for (var i = 0; i < 6; i++)
         {
             br.Write(0);
         }
 
-        for (int i = 0; i < Bitmap.Resolution.X; i++)
+        for (var i = 0; i < Bitmap.Resolution.X; i++)
         {
-            for (int j = 0; j < Bitmap.Resolution.Y; j++)
+            for (var j = 0; j < Bitmap.Resolution.Y; j++)
             {
                 var color = Bitmap[i, j];
                 br.Write((byte)(color.B*255));

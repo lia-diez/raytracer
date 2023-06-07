@@ -86,15 +86,15 @@ public static class MutationMatrix
     {
         var matrix = source.Copy();
         var s = new float[3];
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             matrix[i, 3] = 0;
             s[i] = new Vector3(matrix[0, i], matrix[1, i], matrix[2, i]).Magnitude;
         }
 
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (var j = 0; j < 3; j++)
             {
                 matrix[j, i] /= s[i];
             }
@@ -110,10 +110,10 @@ public static class MutationMatrix
         first = first.Normalize();
         second = second.Normalize();
 
-        Vector3 axis = Vector3.CrossProduct(first, second);
-        float angle = (float)Math.Acos(Vector3.DotProduct(first, second));
+        var axis = Vector3.CrossProduct(first, second);
+        var angle = (float)Math.Acos(Vector3.DotProduct(first, second));
 
-        Matrix rotationMatrix = CreateFromAxisAngle(axis, angle);
+        var rotationMatrix = CreateFromAxisAngle(axis, angle);
 
         return rotationMatrix;
     }

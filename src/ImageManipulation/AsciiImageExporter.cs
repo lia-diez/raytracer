@@ -17,11 +17,11 @@ public class AsciiImageExporter : IImageExporter
         using (var sw = new StreamWriter(Destination))
         {
             sw.AutoFlush = true;
-            for (int i = 0; i < Bitmap.Resolution.X; i++)
+            for (var i = 0; i < Bitmap.Resolution.X; i++)
             {
-                for (int j = 0; j < Bitmap.Resolution.Y; j++)
+                for (var j = 0; j < Bitmap.Resolution.Y; j++)
                 {
-                    string symbol = Bitmap.GetPixel(i, j).R switch
+                    var symbol = Bitmap.GetPixel(i, j).R switch
                     {
                         <= 0 => "--",
                         < 0.2f => "..",

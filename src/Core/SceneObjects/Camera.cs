@@ -3,6 +3,7 @@ using Common.Primitives;
 using Common.Structures;
 using Common.Structures.Numerics;
 using Common.Structures.Traceable;
+using Core.Transformation;
 
 namespace Core.SceneObjects;
 
@@ -53,9 +54,9 @@ public class Camera : ICamera
 
         var rays = new List<Ray>();
 
-        for (int i = 0; i < _resolution.X; i++)
+        for (var i = 0; i < _resolution.X; i++)
         {
-            for (int j = 0; j < _resolution.Y; j++)
+            for (var j = 0; j < _resolution.Y; j++)
             {
                 var direction = new Vector3(edge.X + pixelSizeX * i, edge.Y + pixelSizeY * j, edge.Z).Normalize();
                 if (_transformation != null)
@@ -81,7 +82,7 @@ public class Camera : ICamera
         var light = _scene.Lights.First(); // TODO: do normal lights
 
         TraceResult? closest = null;
-        float minDist = float.MaxValue;
+        var minDist = float.MaxValue;
         foreach (var iTraceable in _scene.Traceables)
         {
             var intersection = iTraceable.Trace(ray);
