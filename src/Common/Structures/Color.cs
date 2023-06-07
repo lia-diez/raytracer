@@ -76,4 +76,14 @@ public record Color
     {
         return new Color(c1.R * c2.R, c1.G * c2.G, c1.B * c2.B);
     }
+    
+    public static Color operator *(Color c1, float k)
+    {
+        return new Color(c1.R * k, c1.G * k, c1.B * k);
+    }
+    
+    public static Color operator *( float k, Color c1)
+    {
+        return new Color(c1.R * k, c1.G * k, c1.B * k);
+    }
 }
