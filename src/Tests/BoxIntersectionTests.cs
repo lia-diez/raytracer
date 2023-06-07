@@ -1,6 +1,5 @@
 ﻿using Common.Structures;
 using Common.Structures.Numerics;
-using Common.Structures.Traceable;
 using OptimisationTree;
 
 namespace Tests;

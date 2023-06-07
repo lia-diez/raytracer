@@ -1,17 +1,13 @@
 using System.Diagnostics;
 using Common.Extensions;
-using Common.Light;
 using Common.Structures;
 using Common.Structures.Numerics;
 using Common.Structures.Traceable;
-using Core;
 using Core.SceneObjects;
-using Core.Transformation;
+using Core.SceneObjects.Light;
+using DependencyInjection;
 using MeshManipulation;
-using OptimisationTree;
-using OptimisationTree.Trees;
 using raytracer;
-using TimeTests;
 
 namespace RaytracerConsole;
 
@@ -19,6 +15,12 @@ class Program
 {
     static void Main(string[] args)
     {
+        var services = new ServiceCollection();
+        services.AddSingleton<IImageExporter, BmpImageExporter>();
+        services.AddSingleton<ObjReader>();
+        
+        var container = services.Build();
+
         string objFile = "", imageFile = "";
         foreach (string arg in args)
         {
@@ -35,14 +37,19 @@ class Program
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
         
-        var mesh = new TreeMesh(ObjReader.ReadObj(objFile));
-        var sphere = new Sphere(new Point(0, 0, -1.4f), 1f);
-        
         var scene = new Scene();
         
-        scene.Lights.Add(new DirectionLight(new Vector3(0, 0, 1)));
+        var mesh = new TreeMesh(ObjReader.ReadObj(objFile));
         scene.Traceables.Add(mesh);
-        scene.Traceables.Add(sphere);
+        
+        scene.Lights.Add(new DirectionalLight(new Color(255, 0, 255), 0.8f, new Vector3(-1, 0, 1)));
+        scene.Lights.Add(new AmbientLight(new Color(255, 255, 255), 0.05f));
+        scene.Lights.Add(new SpotLight(new Color(0, 255, 255), 0.8f, new Point(1, 1, -1)));
+        
+        scene.Traceables.Add(new Sphere(new Point(0, 0, -1f), 0.5f));
+        scene.Traceables.Add(new Sphere(new Point(-1.1f, 1, 1f), 0.5f));
+        scene.Traceables.Add(new Sphere(new Point(0f, 1, 2f), 0.5f));
+        scene.Traceables.Add(new Triangle(new Point(0, 0, 0), new Point(1, 0, 0), new Point(0, 0, 1)));
 
         var transformation = new Matrix(4)
             .Translate(0.4f, 1.4f, -0.29f)

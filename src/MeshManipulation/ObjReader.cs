@@ -3,7 +3,7 @@ using Common.Structures.Traceable;
 
 namespace MeshManipulation;
 
-public static class ObjReader
+public class ObjReader
 {
     public static List<Triangle> ReadObj(string path)
     {

@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\Core\Core.csproj" />
+      <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
       <ProjectReference Include="..\ImageManipulation\ImageManipulation.csproj" />
       <ProjectReference Include="..\MeshManipulation\MeshManipulation.csproj" />
       <ProjectReference Include="..\TimeTests\TimeTests.csproj" />

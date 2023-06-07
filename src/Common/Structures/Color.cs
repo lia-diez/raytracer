@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-
-namespace Common.Structures;
+﻿namespace Common.Structures;
 
 public record Color
 {

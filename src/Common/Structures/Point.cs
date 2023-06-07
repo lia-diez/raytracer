@@ -47,4 +47,9 @@ public class Point
         return obj is Point point && X.Equalish(point.X) && Y.Equalish(point.Y)
                && Z.Equalish(point.Z);
     }
+
+    public Point Copy()
+    {
+        return new Point(X, Y, Z);
+    }
 }

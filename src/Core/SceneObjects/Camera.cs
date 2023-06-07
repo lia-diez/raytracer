@@ -2,7 +2,7 @@
 using Common.Primitives;
 using Common.Structures;
 using Common.Structures.Numerics;
-using Common.Structures.Traceable;
+using Core.SceneObjects.Light;
 using Core.Transformation;
 
 namespace Core.SceneObjects;
@@ -79,8 +79,6 @@ public class Camera : ICamera
 
     public Color GetPixelColor(Ray ray)
     {
-        var light = _scene.Lights.First(); // TODO: do normal lights
-
         TraceResult? closest = null;
         var minDist = float.MaxValue;
         foreach (var iTraceable in _scene.Traceables)
@@ -95,24 +93,28 @@ public class Camera : ICamera
                 minDist = distance;
             }
         }
-
+        
         var color = new Color(0);
-        if (closest != null)
+        foreach (var light in _scene.Lights)
         {
-            var shadowRay = new Ray(closest.IntersectionPoint, light.Direction);
             var intersects = false;
-            foreach (var iTraceable in _scene.Traceables)
+            if (closest == null) continue;
+            if (!(light is AmbientLight))
             {
-                var intersection = iTraceable.Intersects(shadowRay);
-                if (intersection.Item1 && closest.Traceable != iTraceable)
+                var shadowRay = new Ray(closest.IntersectionPoint, light.GetDirection(closest));
+                foreach (var iTraceable in _scene.Traceables)
                 {
-                    intersects = true;
-                    break;
+                    var intersection = iTraceable.Intersects(shadowRay);
+                    if (intersection.Item1 && closest.Traceable != iTraceable)
+                    {
+                        intersects = true;
+                        break;
+                    }
                 }
             }
-            
+
             if (!intersects)
-                color = new Color(light.ComputeColor(closest.Normal));
+                color += light.GetColor(closest);
         }
 
         return color;

@@ -1,5 +1,4 @@
 ﻿using Common.Structures;
-using Common.Structures.Numerics;
 
 namespace Common.Primitives;
 

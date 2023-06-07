@@ -1,5 +1,4 @@
 ﻿using Common.Primitives;
-using Common.Structures.Numerics;
 
 namespace Common.Structures.Traceable;
 
