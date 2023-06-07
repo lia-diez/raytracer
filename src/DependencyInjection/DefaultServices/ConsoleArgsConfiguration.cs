@@ -12,7 +12,8 @@ public class ConsoleArgsConfiguration : IConfiguration
         foreach (var arg in args)
         {
             if (!arg.StartsWith("--") || !arg.Contains('=')) continue;
-            var keyAndValue = arg.Split("=", StringSplitOptions.RemoveEmptyEntries);
+            var varg = arg.Replace("--", "");
+            var keyAndValue = varg.Split("=", StringSplitOptions.RemoveEmptyEntries);
             if (keyAndValue.Length == 2)
             {
                 _dictionary[keyAndValue[0].ToLower()] = keyAndValue[1];

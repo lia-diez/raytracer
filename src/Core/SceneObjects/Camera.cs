@@ -15,12 +15,12 @@ public class Camera : ICamera
     private readonly Vector2Int _resolution;
     private readonly Matrix? _transformation;
     private readonly Matrix? _rotationOnlyTransform;
-    private readonly Scene _scene;
+    public Scene Scene { get; set; }
 
 
     public Camera(Scene scene)
     {
-        _scene = scene;
+        Scene = scene;
         _origin = Point.Zero;
         _direction = new Vector3(0, 0, 1);
         _fov = (float)Math.PI / 3;
@@ -30,7 +30,7 @@ public class Camera : ICamera
 
     public Camera(CameraSettings settings, Scene scene)
     {
-        _scene = scene;
+        Scene = scene;
         _resolution = settings.Resolution;
         _fov = MathExtensions.DegreeToRad(settings.Fov);
         _origin = new Point(0, 0,0);
@@ -81,7 +81,7 @@ public class Camera : ICamera
     {
         TraceResult? closest = null;
         var minDist = float.MaxValue;
-        foreach (var iTraceable in _scene.Traceables)
+        foreach (var iTraceable in Scene.Traceables)
         {
             var intersection = iTraceable.Trace(ray);
             if (intersection == null) continue;
@@ -95,14 +95,14 @@ public class Camera : ICamera
         }
         
         var color = new Color(0);
-        foreach (var light in _scene.Lights)
+        foreach (var light in Scene.Lights)
         {
             var intersects = false;
             if (closest == null) continue;
             if (!(light is AmbientLight))
             {
                 var shadowRay = new Ray(closest.IntersectionPoint, light.GetDirection(closest));
-                foreach (var iTraceable in _scene.Traceables)
+                foreach (var iTraceable in Scene.Traceables)
                 {
                     var intersection = iTraceable.Intersects(shadowRay);
                     if (intersection.Item1 && closest.Traceable != iTraceable)

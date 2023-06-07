@@ -1,6 +1,7 @@
 ﻿using Common.Structures;
 using Common.Structures.Numerics;
 using Common.Structures.Traceable;
+using OptimisationTree;
 
 namespace Core.Transformation;
 
@@ -58,24 +59,12 @@ public static class Transformer
     public static TreeMesh Transform(TreeMesh mesh, Matrix transformation)
     {
         var temp = new HashSet<Point>();
-        foreach (var triangle in mesh.Triangles)
+        for (var i = 0; i < mesh.Triangles.Count; i++)
         {
-            temp.Add(triangle.A);
-            temp.Add(triangle.B);
-            temp.Add(triangle.C);
+            mesh.Triangles[i] = Transform(mesh.Triangles[i], transformation);
         }
 
-        var points = temp.ToList();
-
-        for (var i = 0; i < points.Count; i++)
-        {
-            var temp2 = transformation *
-                        new Matrix(new[,] { { points[i].X }, { points[i].Y }, { points[i].Z }, { 1 } });
-            points[i].X = temp2[0, 0];
-            points[i].Y = temp2[1, 0];
-            points[i].Z = temp2[2, 0];
-        }
-
+        mesh.Tree = new Tree();
         mesh.Tree.Build(mesh.Triangles);
         return mesh;
     }

@@ -5,7 +5,7 @@ namespace MeshManipulation;
 
 public class ObjReader
 {
-    public static List<Triangle> ReadObj(string path)
+    public List<Triangle> ReadObj(string path)
     {
         using var sr = new StreamReader(File.OpenRead(path));
         var vertices = new List<Point>();

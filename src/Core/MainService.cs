@@ -16,12 +16,14 @@ public class MainService
         _imageExporter = imageExporter;
     }
 
-    public void Execute()
+    public void Execute(bool useTree)
     {
-        var scene = _sceneService.GetScene();
+        var scene = _sceneService.GetScene(useTree);
         var bitmap = scene.Camera.Render();
-        _imageExporter.Destination = File.OpenWrite(_config["image"] ?? "out.png");
+        var stream = File.OpenWrite((useTree ? "" : "notree") + (_config["output"] ?? "out.bmp"));
+        _imageExporter.Destination = stream;
         _imageExporter.Bitmap = bitmap;
         _imageExporter.Export();
+        stream.Close();
     }
 }

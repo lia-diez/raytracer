@@ -4,12 +4,6 @@ namespace raytracer;
 
 public class BmpImageExporter : IImageExporter
 {
-    public BmpImageExporter(Stream destination, IBitmap bitmap)
-    {
-        Destination = destination;
-        Bitmap = bitmap;
-    }
-
     public Stream Destination { get; set; }
     public IBitmap Bitmap { get; set; }
     public void Export()

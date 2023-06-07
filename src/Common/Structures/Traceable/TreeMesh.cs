@@ -9,11 +9,6 @@ public class TreeMesh : ITraceable
     public List<Triangle> Triangles;
     public Tree? Tree;
 
-    public TreeMesh()
-    {
-        Triangles = new List<Triangle>();
-    }
-
     public TreeMesh(List<Triangle> triangles)
     {
         Triangles = triangles;
